@@ -28,6 +28,7 @@ public class UserServiceImpl implements UserService {
         User newUser = userRepository.save(user);
         Confirmation confirmation = new Confirmation(newUser);
         confirmationRepository.save(confirmation);
+
         /* Mail sender code */
 
         log.info("Saved user: " + newUser);
@@ -45,6 +46,7 @@ public class UserServiceImpl implements UserService {
             userRepository.save(user);
         } catch (Exception ex) {
             log.error("Exception : " + ex.getMessage());
+            throw new RuntimeException("User verification failed");
         }
         return Boolean.TRUE;
     }
