@@ -7,12 +7,10 @@ import com.mailservice.mailservice.repository.UserRepository;
 import com.mailservice.mailservice.service.UserService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final ConfirmationRepository confirmationRepository;
@@ -20,8 +18,8 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public User saveUser(User user) {
-        if (userRepository.existByEmail(user.getEmail())) {
-            log.error("User already exist!!");
+        if (userRepository.existsByEmail(user.getEmail())) {
+//            log.error("User already exist!!");
             throw new RuntimeException("User already exist!!");
         }
         user.setEnabled(false);
@@ -31,7 +29,7 @@ public class UserServiceImpl implements UserService {
 
         /* Mail sender code */
 
-        log.info("Saved user: " + newUser);
+//        log.info("Saved user: " + newUser);
         return newUser;
     }
 
@@ -45,7 +43,7 @@ public class UserServiceImpl implements UserService {
             user.setEnabled(Boolean.TRUE);
             userRepository.save(user);
         } catch (Exception ex) {
-            log.error("Exception : " + ex.getMessage());
+//            log.error("Exception : " + ex.getMessage());
             throw new RuntimeException("User verification failed");
         }
         return Boolean.TRUE;
