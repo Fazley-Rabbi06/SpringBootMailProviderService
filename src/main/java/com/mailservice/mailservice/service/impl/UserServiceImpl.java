@@ -14,22 +14,20 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final ConfirmationRepository confirmationRepository;
+    private final EmailServiceImpl emailService;
 
     @Transactional
     @Override
     public User saveUser(User user) {
         if (userRepository.existsByEmail(user.getEmail())) {
-//            log.error("User already exist!!");
             throw new RuntimeException("User already exist!!");
         }
         user.setEnabled(false);
         User newUser = userRepository.save(user);
         Confirmation confirmation = new Confirmation(newUser);
         confirmationRepository.save(confirmation);
-
         /* Mail sender code */
-
-//        log.info("Saved user: " + newUser);
+        emailService.sendSimpleMailMessage(user.getName(),user.getEmail(),confirmation.getToken() );
         return newUser;
     }
 

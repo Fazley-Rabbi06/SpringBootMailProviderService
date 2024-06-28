@@ -1,0 +1,16 @@
+POSTGRES_SQL_USERNAME: postgres
+POSTGRES_SQL_PASSWORD: rabbi
+POSTGRES_SQL_HOST: localhost
+POSTGRES_SQL_PORT: 5432
+POSTGRES_SQL_DB: email-details
+
+#server
+SERVER_PORT: 8090
+ACTIVE_PROFILE: dev
+
+#Email Config
+EMAIL_HOST: smtp.gmail.com
+EMAIL_PORT: 587
+EMAIL_ID: rabbifazaly@gmail.com
+EMAIL_PASSWORD: 1234
+VERIFY_EMAIL_HOST: http://localhost:${SERVER_PORT}
